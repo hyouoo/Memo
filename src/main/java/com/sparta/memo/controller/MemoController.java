@@ -33,12 +33,12 @@ public class MemoController {
     @PutMapping("/memos/{id}")
     public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         MemoService memoService = new MemoService(jdbcTemplate);
-        return memoService.update(id, requestDto);
+        return memoService.updateMemo(id, requestDto);
     }
 
     @DeleteMapping("/memos/{id}")
     public Long deleteMemo(@PathVariable Long id) {
         MemoService memoService = new MemoService(jdbcTemplate);
-        return memoService.delete(id);
+        return memoService.deleteMemo(id);
     }
 }
