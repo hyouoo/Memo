@@ -27,7 +27,8 @@ public class MemoService {
 
     public List<MemoResponseDto> getMemos() {
         // DB 조회
-        return memoRepository.findAllByOrderByModifiedAtDesc().stream().map(MemoResponseDto::new).toList();
+        return memoRepository.findAllByOrderByModifiedAtDesc()
+                .stream().map(MemoResponseDto::new).toList();
     }
 
     @Transactional
@@ -47,9 +48,15 @@ public class MemoService {
         return id;
     }
 
+    public List<MemoResponseDto> getMemosByKeyword(String keyword) {
+        return memoRepository.findAllByContentsContainingOrderByModifiedAtDesc(keyword)
+                .stream().map(MemoResponseDto::new).toList();
+    }
+
     private Memo findMemo(Long id) {
         return memoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
         );
     }
+
 }
